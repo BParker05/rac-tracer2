@@ -26,14 +26,14 @@ class Canvas{
         }
 
         void writePixel(int x, int y, Colour c){
-            this->pixels[y-1][x-1] = c; //current issue caused by something to do with unsigned integers when this method is called with 0
+            this->pixels[y][x] = c;
         }
 
         Colour pixelAt(int x,int y){
             return this->pixels[y-1][x-1];
         }
 
-        void writePPM(){ // still not working correctly, may be an issue with colour << operator overload
+        void writePPM(){
             std::ofstream myFile;
             myFile.open("image.ppm");
             myFile << "P3\n" << this->width << " " << this->height << "\n255\n";
@@ -42,8 +42,6 @@ class Canvas{
                     myFile << pixels[i][j];
                 myFile << std::endl;
             }
-
-
             myFile.close();
         }
 };

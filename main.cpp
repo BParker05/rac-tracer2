@@ -26,14 +26,13 @@ int main(){
     }
     */
 
-    Canvas c = Canvas(5,3);
-    Colour c1 = Colour(1.5, 0, 0);
-    Colour c2 = Colour(0, 0.5, 0);
-    Colour c3 = Colour(-0.5, 0, 1);
+    Canvas c = Canvas(10,2);
+
+    for (int i = 0; i < c.pixels.size(); i++) {
+        for (int j = 0; j < c.pixels[i].size(); j++)
+            c.pixels[i][j] = Colour(1,0.8,0.6);
+    }
     
-    c.writePixel(0,0,c1); // problematic method call, see method definition for more
-    c.writePixel(2,1,c2);
-    c.writePixel(4,2,c3);
 
     c.writePPM();
     

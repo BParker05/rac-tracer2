@@ -48,5 +48,5 @@ class Colour{
 };
 
 std::ostream& operator << (std::ostream &os, Colour &c) {
-    return (os << std::clamp(static_cast<int>(c.red)*255,0,255) << " " << std::clamp(static_cast<int>(c.green)*255,0,255) << " " << std::clamp(static_cast<int>(c.blue)*255,0,255) << " ");
+    return (os << std::clamp(static_cast<int>(c.red*255),0,255) << " " << std::clamp(static_cast<int>(c.green*255),0,255) << " " << std::clamp(static_cast<int>(c.blue*255),0,255) << " ");
 }
