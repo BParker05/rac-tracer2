@@ -18,18 +18,21 @@ Projectile tick(Environment env, Projectile proj){
 
 int main(){
 
-    std::vector<std::vector<float>> z = {{1,2,3,4},
-                                        {2,4,4,2},
-                                        {8,6,4,1},
-                                        {0,0,0,1}};
+    std::vector<std::vector<float>> z = {{-6,1,1,6},
+                                        {-8,5,8,6},
+                                        {-1,0,8,2},
+                                        {-7,1,-1,1}};
 
     Matrix a = Matrix(z);
 
-    Tuple b = Tuple(1,2,3,1);
+    Matrix c = a.submatrix(2,1);
 
-    Tuple c = a*b;
+    for (int i = 0; i < c.values.size(); i++) {
+        for (int j = 0; j < c.values[i].size(); j++){
+            std::cout << " " << c.values[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
 
-    std::cout<< c.x << " " << c.y << " " << c.z << " " << c.w << std::endl;
-    
     return 0; 
 }

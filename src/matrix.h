@@ -32,7 +32,7 @@ class Matrix{
             for (int i = 0; i < this->rows; i++){
                 this->values.push_back(std::vector<float>());
                 for (int j = 0; j < columns; j++){
-                    this->values[i].push_back(input[i][j]);
+                    this->values[i].push_back(input[j][i]);
                 }
             }
         }
@@ -43,6 +43,38 @@ class Matrix{
 
         float valueAt(int row, int column){
             return this->values[row][column];
+        }
+
+        Matrix transpose(){
+            std::vector<std::vector<float>> tmp;
+            for(int i = 0; i < this->values[0].size(); i++){
+                tmp.push_back(std::vector<float>());
+                for(int j = 0; j < this->values.size(); j++){
+                    tmp[i].push_back(this->values[j][i]);
+                }
+            }
+            return Matrix(tmp);
+        }
+
+        float determinant(){
+            float a = this->values[0][0];
+            float b = this->values[0][1];
+            float c = this->values[1][0];
+            float d = this->values[1][1];
+
+            return a*d - b*c;
+        }
+
+        Matrix submatrix(int row, int column){
+	        Matrix tmp = Matrix(this->values);
+
+            tmp.values.erase(tmp.values.begin() + row);
+
+            for(int i = 0; i < tmp.values.size(); i++){
+                tmp.values[i].erase(tmp.values[i].begin() + column);
+            }
+
+            return tmp;
         }
 
         bool operator==(const Matrix &a){
