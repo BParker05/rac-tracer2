@@ -173,3 +173,62 @@ class Matrix{
 
         
 };
+
+const float PI = 2 * std::acos(0.0);
+
+Matrix identityMatrix() {
+    std::vector<std::vector<float>> tmp = {{1,0,0,0},
+                                            {0,1,0,0},
+                                            {0,0,1,0},
+                                            {0,0,0,1}};
+
+    return Matrix(tmp);
+}
+
+Matrix translation(float x, float y, float z){
+    Matrix tmp = identityMatrix();
+    tmp.values[0][3] = x;
+    tmp.values[1][3] = y;
+    tmp.values[2][3] = z;
+
+    return Matrix(tmp);
+}
+
+Matrix scaling(float x, float y, float z){
+    Matrix tmp = identityMatrix();
+    tmp.values[0][0] = x;
+    tmp.values[1][1] = y;
+    tmp.values[2][2] = z;
+
+    return Matrix(tmp);
+}
+
+Matrix rotationX(float radian) {
+	Matrix tmp = identityMatrix();
+	tmp.values[1][1] = cos(radian);
+	tmp.values[1][2] = -sin(radian);
+	tmp.values[2][1] = sin(radian);
+	tmp.values[2][2] = cos(radian);
+
+	return tmp;
+}
+
+Matrix rotationY(float radian) {
+	Matrix tmp = identityMatrix();
+	tmp.values[0][0] = cos(radian);
+	tmp.values[0][2] = sin(radian);
+	tmp.values[2][0] = -sin(radian);
+	tmp.values[2][2] = cos(radian);
+
+	return tmp;
+}
+
+Matrix rotationZ(float radian) {
+	Matrix tmp = identityMatrix();
+	tmp.values[0][0] = cos(radian);
+	tmp.values[0][1] = -sin(radian);
+	tmp.values[1][0] = sin(radian);
+	tmp.values[1][1] = cos(radian);
+
+	return tmp;
+}

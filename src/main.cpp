@@ -18,57 +18,16 @@ Projectile tick(Environment env, Projectile proj){
 
 int main(){
 
-    std::vector<std::vector<float>> z = {{0,9,3,0},
-                                        {9,8,0,8},
-                                        {1,8,5,3},
-                                        {0,0,5,8}};
+    Tuple p = Point(0,1,0);
+    Matrix hq = rotationX(PI/4);
+    Matrix fq = rotationX(PI/2);
 
-    std::vector<std::vector<float>> x = {{-2,1,2,3},
-                                        {3,2,1,-1},
-                                        {4,3,6,5},
-                                        {1,2,7,8}};
+    Tuple hqp = hq*p;
+    Tuple fqp = fq*p;
 
-    Matrix a = Matrix(z);
-    Matrix b = a.transpose();
-
-    Matrix c = a*b;
-
-    Matrix d = c*b.inverse();
-    std::cout << "a" << std::endl;
-    for(int i = 0; i < b.values.size(); i++){
-        for(int j = 0; j < b.values[0].size(); j++){
-            std::cout << a.values[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-
-    std::cout << "b" << std::endl;
-    for(int i = 0; i < b.values.size(); i++){
-        for(int j = 0; j < b.values[0].size(); j++){
-            std::cout << b.values[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-
-    std::cout << "c" << std::endl;
-    for(int i = 0; i < b.values.size(); i++){
-        for(int j = 0; j < b.values[0].size(); j++){
-            std::cout << c.values[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-
-    std::cout << "d" << std::endl;
-    for(int i = 0; i < b.values.size(); i++){
-        for(int j = 0; j < b.values[0].size(); j++){
-            std::cout << d.values[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
+    std::cout << fqp.x << " " << fqp.y << " " << fqp.z << std::endl;
+    std::cout << hqp.x << " " << hqp.y << " " << hqp.z << std::endl;
+    
     
     return 0; 
 }
