@@ -32,7 +32,7 @@ class Matrix{
             for (int i = 0; i < this->rows; i++){
                 this->values.push_back(std::vector<float>());
                 for (int j = 0; j < columns; j++){
-                    this->values[i].push_back(input[j][i]);
+                    this->values[i].push_back(input[i][j]);
                 }
             }
         }
@@ -57,13 +57,18 @@ class Matrix{
         }
 
         float determinant(){
-            float a = this->values[0][0];
-            float b = this->values[0][1];
-            float c = this->values[1][0];
-            float d = this->values[1][1];
+            float det = 0;
 
-            return a*d - b*c;
-        }
+            if(this->values.size() == 2){
+                det = this->values[0][0] * this->values[1][1] - this->values[0][1] * this->values[1][0];
+                return det;
+            }
+
+            for(int col = 0; col < this->values.size(); col++){
+                det += this->values[0][col] * this->cofactor(0,col);
+            }
+            return det;
+            }
 
         Matrix submatrix(int row, int column){
 	        Matrix tmp = Matrix(this->values);
@@ -72,6 +77,40 @@ class Matrix{
 
             for(int i = 0; i < tmp.values.size(); i++){
                 tmp.values[i].erase(tmp.values[i].begin() + column);
+            }
+
+            return tmp;
+        }
+
+        float minor(int row, int column){
+            return this->submatrix(row,column).determinant();
+        }
+
+        float cofactor(int row, int column){
+            if((row + column) % 2 == 0){
+                return this->minor(row, column);
+            } else {
+                return -this->minor(row, column);
+            }
+        }
+
+        bool isInvertible(){
+            if(this->determinant() == 0){
+                return false;
+            }
+
+            return true;
+        }
+
+        Matrix inverse(){
+            Matrix tmp = Matrix(this->rows, this->columns);
+            float det = this->determinant();
+
+            for(int i = 0; i < this->values.size(); i++){
+                for(int j = 0; j < this->values[0].size(); j++){
+                    float c = this->cofactor(i,j);
+                    tmp.values[j][i] = c / det;
+                }
             }
 
             return tmp;
