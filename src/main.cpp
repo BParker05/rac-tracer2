@@ -19,15 +19,11 @@ Projectile tick(Environment env, Projectile proj){
 int main(){
 
     Tuple p = Point(0,1,0);
-    Matrix hq = rotationX(PI/4);
-    Matrix fq = rotationX(PI/2);
+    Matrix hq = rotationZ(PI/2);
 
     Tuple hqp = hq*p;
-    Tuple fqp = fq*p;
 
-    std::cout << fqp.x << " " << fqp.y << " " << fqp.z << std::endl;
-    std::cout << hqp.x << " " << hqp.y << " " << hqp.z << std::endl;
-    
+    std::cout << hqp.x << " " << hqp.y << " " << hqp.z << std::endl;    
     
     return 0; 
 }

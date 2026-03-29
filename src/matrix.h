@@ -165,10 +165,16 @@ class Matrix{
         }
 
         Tuple operator*(const Tuple &a){
-            return Tuple(this->values[0][0] * a.x + this->values[0][1] * a.y + this->values[0][2] * a.z + this->values[0][3] * a.w,
-                        this->values[1][0] * a.x + this->values[1][1] * a.y + this->values[1][2] * a.z + this->values[1][3] * a.w,
-                        this->values[2][0] * a.x + this->values[2][1] * a.y + this->values[2][2] * a.z + this->values[2][3] * a.w,
-                        this->values[3][0] * a.x + this->values[3][1] * a.y + this->values[3][2] * a.z + this->values[3][3] * a.w);
+            Matrix tmp = Matrix(4,4);
+
+            for (int i = 0; i < tmp.values.size(); i++){
+                tmp.values[i][0] = this->values[i][0] * a.x +
+                            this->values[i][1] * a.y +
+                            this->values[i][2] * a.z +
+                            this->values[i][3] * a.w;
+            }
+
+            return Tuple(tmp.values[0][0], tmp.values[1][0], tmp.values[2][0], tmp.values[3][0]);
         }
 
         
