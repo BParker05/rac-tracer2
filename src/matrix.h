@@ -98,7 +98,6 @@ class Matrix{
             if(this->determinant() == 0){
                 return false;
             }
-
             return true;
         }
 
