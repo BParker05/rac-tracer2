@@ -1,16 +1,21 @@
 #pragma once
 
 #include "tuple.h"
+#include "matrix.h"
 
 class Sphere{
     public:
 
         int id;
-        Tuple origin = Point(0,0,0);
+        Matrix transformation = identityMatrix();
 
         Sphere() = default;
 
         Sphere(int id){
             this->id = id;
+        }
+
+        void setTransform(Matrix t){
+            this->transformation = this->transformation * t;
         }
 };

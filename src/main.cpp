@@ -8,6 +8,7 @@
 #include "projectile.h"
 #include "matrix.h"
 #include "ray.h"
+#include "intersection.h"
 
 Projectile tick(Environment env, Projectile proj){
     proj.position = proj.position + proj.velocity;
@@ -19,13 +20,14 @@ Projectile tick(Environment env, Projectile proj){
 
 int main(){
 
-    Ray r = Ray(Point(0,0,5), Vector(0,0,1));
+    Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
     Sphere s = Sphere(0);
+    s.setTransform(translation(5,0,0));
+    std::vector<Intersection> xs = intersect(r, s);
 
-    std::vector<float> xs = intersect(r,s);
+    std::cout << xs.size() << std::endl;
+    std::cout << xs[0].t << std::endl;
+    std::cout << xs[1].t << std::endl;
 
-    std::cout << xs[0] << std::endl;
-    std::cout << xs[1] << std::endl;
-    
     return 0; 
 }

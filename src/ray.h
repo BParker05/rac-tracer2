@@ -4,6 +4,7 @@
 
 #include "tuple.h"
 #include "sphere.h"
+#include "intersection.h"
 
 class Ray {
     public:
@@ -23,8 +24,13 @@ class Ray {
         }
 };
 
-std::vector<float> intersect(Ray r, Sphere s){
-    std::vector<float> tmp = {0,0};
+Ray transform(Ray r, Matrix m){
+    return Ray(m * r.origin, m * r.direction);
+}
+
+std::vector<Intersection> intersect(Ray r, Sphere s){
+    std::vector<Intersection> tmp;
+    r = transform(r, s.transformation.inverse());
 
     Tuple sphereToRay = r.origin - Point(0,0,0);
 
@@ -38,8 +44,29 @@ std::vector<float> intersect(Ray r, Sphere s){
         return tmp;
     }
 
-    tmp[0] = (-b - std::sqrt(discriminant)) / (2 * a);
-    tmp[1] = (-b + std::sqrt(discriminant)) / (2 * a);
+    tmp.push_back(Intersection((-b - std::sqrt(discriminant)) / (2 * a), s));
+    tmp.push_back(Intersection((-b + std::sqrt(discriminant)) / (2 * a), s));
 
     return tmp;
 }
+
+Intersection hit(std::vector<Intersection> xs){
+	Intersection tmp = Intersection(-1);
+
+	for (int i = 0; i < xs.size(); i++){
+		if (xs[i].t < 0) {
+			continue;
+		} else if (tmp.t < 0) {
+			tmp = xs[i];
+		} else if (xs[i].t < tmp.t) {
+			tmp = xs[i];
+		}
+	}
+
+	if (tmp.t < 0){
+		return NULL;
+	}
+
+	return tmp;
+}
+
